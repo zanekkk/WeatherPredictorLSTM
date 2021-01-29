@@ -95,8 +95,8 @@ def predict(miasto, parameter):
     elapsed = end - start
 
     # Zostaje utworzont wykres zestawiający przewidziane parametry z prawdziwymi wartościami
-    plt.plot(df.loc[split_idx:, 'date_time'], dataset_test.values, color='black', label='Real')
-    plt.plot(df.loc[split_idx:, 'date_time'], predicted_param, color='orange', label='Predicted')
+    plt.plot(df.loc[split_idx:, 'date_time'], dataset_test.values, color='black', label='Real ' + parameter)
+    plt.plot(df.loc[split_idx:, 'date_time'], predicted_param, color='orange', label='Predicted ' + parameter)
 
     plt.xticks(np.arange(0, len(dataset_test.values), 5), rotation='vertical')
     plt.title(' Prediction EPOCHS = ' + str(EPOCHS) + ' BATCH_SIZE = ' + str(BATCH_SIZE) + ' INPUT_DATA = ' + str(
