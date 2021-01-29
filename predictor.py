@@ -1,3 +1,10 @@
+# Temat: Sieć neuronowa przewidująca pogodę (kilka podstawowych parametrów pogodowych)
+# w jakimś miejscu na podstawie danych historycznych
+#
+# Wykonali:
+# Żaneta Cichoń (Nr.indeksu: 19577), Mateusz Hawryluk (Nr.indeksu: 19606)
+# Grupa: MZ01IP1A/B
+#
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -9,7 +16,7 @@ import dataCreator
 from datetime import date, timedelta
 
 
-def predict(miasto, parameter) :
+def predict(miasto, parameter):
     # Tworzony jest objekt Dataframe z zawartością danych historycznych ze wskazanego miasta
     df = pd.read_csv(miasto+'.csv', sep=',')
 
@@ -37,7 +44,7 @@ def predict(miasto, parameter) :
     X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
 
     # Wskazywana jest ilość epok (EPOCHS) oraz rozmiar porcji danych (BATCH_SIZE)
-    EPOCHS = 10
+    EPOCHS = 50
     BATCH_SIZE = 5
     # Do stworzenia modelu wykorzystywana jest klasa Sequential
     model = Sequential()
@@ -88,8 +95,8 @@ def predict(miasto, parameter) :
     elapsed = end - start
 
     # Zostaje utworzont wykres zestawiający przewidziane parametry z prawdziwymi wartościami
-    plt.plot(df.loc[split_idx:, 'date_time'], dataset_test.values, color='black', label='Real TempC')
-    plt.plot(df.loc[split_idx:, 'date_time'], predicted_param, color='orange', label='Predicted TempC')
+    plt.plot(df.loc[split_idx:, 'date_time'], dataset_test.values, color='black', label='Real')
+    plt.plot(df.loc[split_idx:, 'date_time'], predicted_param, color='orange', label='Predicted')
 
     plt.xticks(np.arange(0, len(dataset_test.values), 5), rotation='vertical')
     plt.title(' Prediction EPOCHS = ' + str(EPOCHS) + ' BATCH_SIZE = ' + str(BATCH_SIZE) + ' INPUT_DATA = ' + str(
@@ -107,14 +114,14 @@ def getStartDate():
 
 def run_menu():
     print("*" * 67)
-    print("-" * 22 + "5 DAYS WEATHER FORECAST" + "-" * 22)
+    print("-" * 22 + "LSTM WEATHER FORECAST" + "-" * 22)
     print(" " * 5 + " Write name of the city (e.g. Warsaw, Gdynia, London)" + " " * 5)
     cityName = input("Enter city name: ")
     #dataCreator.retrieve_hist_data([cityName], getStartDate(), getEndDate(), 24, location_label=False, export_csv=True, store_df=True)
     print("-" * 67)
     print(" " * 5 + "Program can predict the following parameters for " + cityName + " " * 5)
-    print(" " * 3 + "|tempC     |maxtempC  |mintempC|totalSnow_cm |FeelsLikeC   |")
-    print(" " * 3 + "|WindChillC|humidity  |pressure|windspeedKmph|")
+    print(" " * 3 + "|tempC     |maxtempC  |mintempC  |totalSnow_cm |")
+    print(" " * 3 + "|WindChillC|humidity  |pressure  |FeelsLikeC   |")
     parameter = input("Enter parameter name: ")
     print("-" * 67)
     print(" " * 5 + "Program now is now making forecast of " + parameter + " for " + cityName + " " * 5)
