@@ -117,7 +117,7 @@ def run_menu():
     print("-" * 22 + "LSTM WEATHER FORECAST" + "-" * 22)
     print(" " * 5 + " Write name of the city (e.g. Warsaw, Gdynia, London)" + " " * 5)
     cityName = input("Enter city name: ")
-    #dataCreator.retrieve_hist_data([cityName], getStartDate(), getEndDate(), 24, location_label=False, export_csv=True, store_df=True)
+    dataCreator.retrieve_hist_data([cityName], getStartDate(), getEndDate(), 24, location_label=False, export_csv=True, store_df=True)
     print("-" * 67)
     print(" " * 5 + "Program can predict the following parameters for " + cityName + " " * 5)
     print(" " * 3 + "|tempC     |maxtempC  |mintempC  |totalSnow_cm |")
